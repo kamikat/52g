@@ -5,6 +5,7 @@
 
 using namespace bf;
 
+// http://hur.st/bloomfilter?n=370069037&p=0.0001
 static const size_t BF_K = 13;
 static const size_t BF_M = 7094266647;
 
@@ -20,7 +21,6 @@ void test(const hasher& hash, const object& obj) {
 }
 
 int main () {
-  // http://hur.st/bloomfilter?n=370069037&p=0.0001
   basic_bloom_filter bf(make_hasher(BF_K), BF_M);
   hasher hash = make_hasher(2, 1);
   test(hash, { "123", 3 });
