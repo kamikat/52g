@@ -1,9 +1,14 @@
-cmake_minimum_required (VERSION 3.1)
-project (bf52g)
+project(52g CXX)
 
-add_subdirectory (libbf)
-target_include_directories (libbf PUBLIC libbf/src)
+cmake_minimum_required(VERSION 3.2)
 
-add_executable (bf52g bf.cc)
-set_property (TARGET bf52g PROPERTY CXX_STANDARD 11)
-target_link_libraries (bf52g libbf)
+add_subdirectory(libbf/src)
+target_compile_options(libbf PUBLIC -std=c++11)
+target_include_directories(libbf PUBLIC libbf/src)
+
+add_subdirectory(core)
+
+add_executable(mkbfidx mkbfidx.cc)
+target_link_libraries(mkbfidx core)
+
+add_subdirectory(test)
