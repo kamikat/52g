@@ -1,6 +1,10 @@
 #ifndef BLOOM_FILTER_H
 #define BLOOM_FILTER_H
 
+#define private public
+#include <bf/bitvector.h>
+#undef private
+
 #include <bf.h>
 
 namespace app {
