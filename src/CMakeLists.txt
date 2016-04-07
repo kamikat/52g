@@ -12,5 +12,5 @@ set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR})
 add_executable(mkbfidx mkbfidx.cc)
 target_link_libraries(mkbfidx core docopt)
 
-add_executable(findidx findidx.cc)
-target_link_libraries(findidx core docopt)
+add_executable(openidx openidx.cc)
+target_link_libraries(openidx core docopt)

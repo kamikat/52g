@@ -1,4 +1,5 @@
 #include <bloom_filter.h>
+#include <debug.h>
 
 namespace app {
 
@@ -10,6 +11,7 @@ namespace app {
   bloom_filter::bloom_filter(bloom_filter&& o)
   : basic_bloom_filter(std::move(o)), k_(o.k_), m_(o.m_)
   {
+    DEBUG("MOVE bloom filter");
   }
 
   size_t bloom_filter::lookupDigest(const std::vector<bf::digest>& digests)

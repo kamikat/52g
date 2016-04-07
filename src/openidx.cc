@@ -1,46 +1,45 @@
 #include <iostream>
+#include <fstream>
 #include <docopt.h>
 #include <bloom_filter.h>
-#include <debug.h>
 #include <util.h>
+#include <debug.h>
 
 const char USAGE[] =
 R"(
-  Make bloom filter index.
+  Command-line tool to query bloom filter index.
 
   Usage:
-    mkbfidx <k> <m>
-    mkbfidx <k> <m> > stdin.idx
-    mkbfidx <k> <m> < data.txt > data.idx
-    mkbfidx <k> <m> < data.txt | gzip > data.idx.gz
+    openidx <file>
 
   Options:
-    k           number of hash functions
-    m           number of bits
+    file        bloom filter index file
     -h, --help  print help message
 )";
 
 using namespace app;
 using namespace std;
 
-void dump(bloom_filter& bf, ostream& out) {
-  Header header = { bf.k_, bf.m_ };
-  out.write((char*) &header, sizeof(header));
+bloom_filter load(const string& file) {
+  ifstream ifs { file, ios::binary };
+  Header header;
+  ifs.read((char*) &header, sizeof(header));
+  DEBUG("LOAD k=" << header.k << ", m=" << header.m);
+  bloom_filter bf(header.k, header.m);
   auto& storage = bf.storage();
   char* data = (char*) storage.bits_.data();
   size_t size = sizeof(bf::bitvector::block_type) * storage.blocks();
-  out.write(data, size).flush();
+  ifs.read(data, size);
+  return move(bf);
 }
 
 int main(int argc, const char* argv[]) {
   auto args = docopt::docopt(USAGE, { argv + 1, argv + argc });
-  bloom_filter bf { size_t(args["<k>"].asLong()), size_t(args["<m>"].asLong()) };
+  bloom_filter bf = load(args["<file>"].asString());
   string line;
   while (getline(cin, line)) {
     fold_str(line, bf::default_hash_function::max_obj_size);
-    bf.add(line);
-    DEBUG("ADD '" << line << "'");
+    cout << bf.lookup(line) << endl;
   }
-  dump(bf, cout);
   return 0;
 }
