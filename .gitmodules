@@ -4,3 +4,6 @@
 [submodule "src/docopt"]
 	path = src/docopt
 	url = https://github.com/docopt/docopt.cpp
+[submodule "src/json11"]
+	path = src/json11
+	url = https://github.com/kirisetsz/json11
