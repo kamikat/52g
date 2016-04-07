@@ -5,14 +5,19 @@
 #include <util.h>
 
 const char USAGE[] =
-R"(Make bloom-filter index.
+R"(
+  Make bloom filter index.
 
   Usage:
     mkbfidx <k> <m>
+    mkbfidx <k> <m> > stdin.idx
+    mkbfidx <k> <m> < data.txt > data.idx
+    mkbfidx <k> <m> < data.txt | gzip > data.idx.gz
 
   Options:
-    -h, --help                  print help message
-
+    k           number of hash functions
+    m           number of bits
+    -h, --help  print help message
 )";
 
 using namespace app;
