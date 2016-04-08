@@ -38,7 +38,7 @@ bloom_filter load(const string& file) {
   return move(bf);
 }
 
-int search(const string line) {
+int search(const bloom_filter& bf, string line) {
   fold_str(line, bf::default_hash_function::max_obj_size);
   return bf.lookup(line);
 }
@@ -50,11 +50,11 @@ int main(int argc, const char* argv[]) {
   boost::system::error_code ec;
   http2 server;
 
-  server.handle("/search", [=](const request &req, const response &res) {
+  server.handle("/search", [&bf](const request &req, const response &res) {
     string query = req.uri().raw_query;
     // TODO parse raw query string
     string body;
-    if (search(query)) {
+    if (search(bf, query)) {
       body = "{ \"found\": true }\n";
     } else {
       body = "{ \"found\": false }\n";

@@ -16,13 +16,27 @@ target_link_libraries(mkbfidx core docopt)
 add_executable(openidx openidx.cc)
 target_link_libraries(openidx core docopt)
 
-add_executable(servidx servidx.cc)
-target_link_libraries(servidx core docopt)
-
 find_package(PkgConfig)
-pkg_search_module(OPENSSL REQUIRED openssl)
-pkg_search_module(NGHTTP2 REQUIRED libnghttp2>=1.8.0)
+find_package(Boost REQUIRED COMPONENTS system)
+pkg_search_module(OpenSSL REQUIRED openssl)
+pkg_search_module(ngHTTP2 REQUIRED libnghttp2)
+pkg_search_module(ngHTTP2_asio REQUIRED libnghttp2_asio)
 
-target_link_libraries(servidx ${NGHTTP2_LIBRARIES})
-target_include_directories(servidx PUBLIC ${NGHTTP2_INCLUDE_DIRS})
-target_compile_options(servidx PUBLIC ${NGHTTP2_CFLAGS_OTHER})
+# Resolve OpenSSL library names to paths (fixes conflict with default ssl implementation on OS X)
+foreach(name ${OpenSSL_LIBRARIES})
+  find_library(${name}_LOCATION ${name} PATHS ${OpenSSL_LIBRARY_DIRS} NO_DEFAULT_PATH)
+  list(APPEND OpenSSL_LIBRARIES_ ${${name}_LOCATION})
+endforeach()
+set(OpenSSL_LIBRARIES ${OpenSSL_LIBRARIES_})
+
+add_executable(servidx servidx.cc)
+target_include_directories(servidx
+  PRIVATE
+    ${ngHTTP2_INCLUDE_DIRS}
+    ${OpenSSL_INCLIDE_DIRS})
+target_link_libraries(servidx core docopt)
+target_link_libraries(servidx
+    ${ngHTTP2_LIBRARIES}
+    ${ngHTTP2_asio_LIBRARIES}
+    ${OpenSSL_LIBRARIES}
+    ${Boost_LIBRARIES})
