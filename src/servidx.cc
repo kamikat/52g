@@ -11,13 +11,13 @@ R"(
   RESTful API server to query bloom filter index.
 
   Usage:
-    servidx <file>
+    servidx <file> [-H <hostname>] [-p <port>]
 
   Options:
-    file        bloom filter index file
-    -H, --host  hostname to listen [default: localhost]
-    -p, --port  port to listen [default: 8088]
-    -h, --help  print help message
+    file                   bloom filter index file
+    -H, --host <hostname>  hostname to listen [default: localhost]
+    -p, --port <port>      port to listen [default: 8088]
+    -h, --help             print help message
 )";
 
 using namespace app;
@@ -51,8 +51,10 @@ int main(int argc, const char* argv[]) {
   http2 server;
 
   server.handle("/search", [&bf](const request &req, const response &res) {
-    string query = req.uri().raw_query;
+    uri_ref uri = req.uri();
+    string query = uri.raw_query;
     // TODO parse raw query string
+    DEBUG("HTTP " << req.method() << " " << uri.raw_path);
     string body;
     if (search(bf, query)) {
       body = "{ \"found\": true }\n";
@@ -63,8 +65,11 @@ int main(int argc, const char* argv[]) {
     res.end(body);
   });
 
-  if (server.listen_and_serve(ec, args["--host"].asString(), args["--port"].asString())) {
+  string hostname = args["--host"].asString(), port = args["--port"].asString();
+  cerr << "server listening " << hostname << ":" << port << endl;
+  if (server.listen_and_serve(ec, hostname, port)) {
     std::cerr << "error: " << ec.message() << std::endl;
   }
+
   return 0;
 }
