@@ -15,3 +15,14 @@ target_link_libraries(mkbfidx core docopt)
 
 add_executable(openidx openidx.cc)
 target_link_libraries(openidx core docopt)
+
+add_executable(servidx servidx.cc)
+target_link_libraries(servidx core docopt)
+
+find_package(PkgConfig)
+pkg_search_module(OPENSSL REQUIRED openssl)
+pkg_search_module(NGHTTP2 REQUIRED libnghttp2>=1.8.0)
+
+target_link_libraries(servidx ${NGHTTP2_LIBRARIES})
+target_include_directories(servidx PUBLIC ${NGHTTP2_INCLUDE_DIRS})
+target_compile_options(servidx PUBLIC ${NGHTTP2_CFLAGS_OTHER})
