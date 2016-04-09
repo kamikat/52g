@@ -24,7 +24,7 @@ bloom_filter load(const string& file) {
   ifstream ifs { file, ios::binary };
   Header header;
   ifs.read((char*) &header, sizeof(header));
-  DEBUG("LOAD k=" << header.k << ", m=" << header.m);
+  cout << "LOAD k=" << header.k << ", m=" << header.m << ", seed=" << header.seed << endl;
   bloom_filter bf(header.k, header.m);
   auto& storage = bf.storage();
   char* data = (char*) storage.bits_.data();

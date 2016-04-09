@@ -3,13 +3,13 @@
 
 namespace app {
 
-  bloom_filter::bloom_filter(size_t k, size_t m)
-  : bf::basic_bloom_filter(bf::make_hasher(k), m), k_(k), m_(m)
+  bloom_filter::bloom_filter(size_t k, size_t m, size_t seed)
+  : bf::basic_bloom_filter(bf::make_hasher(k), m), k_(k), m_(m), seed_(seed)
   {
   }
 
   bloom_filter::bloom_filter(bloom_filter&& o)
-  : basic_bloom_filter(std::move(o)), k_(o.k_), m_(o.m_)
+  : basic_bloom_filter(std::move(o)), k_(o.k_), m_(o.m_), seed_(o.seed_)
   {
     DEBUG("MOVE bloom filter");
   }

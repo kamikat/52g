@@ -17,7 +17,7 @@ public:
   static const size_t BF_K = 13;
   static const size_t BF_M = 7094266647;
 
-  bloom_filter(size_t k, size_t m);
+  bloom_filter(size_t k, size_t m, size_t seed = 1);
 
   bloom_filter(bloom_filter&&);
 
@@ -25,11 +25,13 @@ public:
 
   const size_t k_;
   const size_t m_;
+  const size_t seed_;
 };
 
 typedef struct {
   uint64_t k;
   uint64_t m;
+  uint64_t seed;
 } Header;
 
 }
