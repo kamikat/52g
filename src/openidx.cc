@@ -45,17 +45,17 @@ int main(int argc, const char* argv[]) {
     while (getline(cin, line)) {
       istringstream iss { line };
       vector<bf::digest> digests { istream_iterator<bf::digest> { iss >> hex }, istream_iterator<bf::digest> {} };
-      DEBUG("LOOKUP digest {");
+      DEBUG("FIND digest {");
       for (auto d : digests) {
-        DEBUG("LOOKUP     " << HEX(d));
+        DEBUG("FIND     " << HEX(d));
       }
-      DEBUG("LOOKUP }");
+      DEBUG("FIND }");
       cout << bf.lookupDigest(digests) << endl;
     }
   } else {
     // plain input
     while (getline(cin, line)) {
-      DEBUG("LOOKUP plain \"" << line << "\"");
+      DEBUG("FIND plain \"" << line << "\"");
       fold_str(line, bf::default_hash_function::max_obj_size);
       cout << bf.lookup(line) << endl;
     }
