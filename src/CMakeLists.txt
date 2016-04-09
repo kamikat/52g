@@ -16,7 +16,6 @@ target_link_libraries(mkbfidx core docopt)
 add_executable(openidx openidx.cc)
 target_link_libraries(openidx core docopt)
 
-include(${CMAKE_SOURCE_DIR}/cmake/nghttp2_asioConfig.cmake)
-
 add_executable(servidx servidx.cc)
+include(${CMAKE_SOURCE_DIR}/cmake/nghttp2_asioConfig.cmake)
 target_link_libraries(servidx core docopt nghttp2_asio)
