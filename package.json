@@ -1,0 +1,43 @@
+{
+  "name": "52g",
+  "version": "1.0.0",
+  "description": "Process & query leaked password data using bloom filter.",
+  "main": "index.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "install": "npm run compile",
+    "compile": "mkdir build; cd build && cmake .. && make mkbfidx openidx",
+    "clean": "rm -rf build",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "bin": {
+    "mkbfidx": "./build/mkbfidx",
+    "openidx": "./build/openidx",
+    "servidx": "./index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "github.com:kirisetsz/52g.git"
+  },
+  "keywords": [
+    "bloom",
+    "filter",
+    "password",
+    "163",
+    "netease"
+  ],
+  "author": "kirisetsz <kirisetsz@gmail.com>",
+  "license": "MIT",
+  "dependencies": {
+    "body-parser": "^1.15.0",
+    "compression": "^1.6.1",
+    "death": "^1.0.0",
+    "express": "^4.13.4",
+    "fifo": "^2.3.0",
+    "morgan": "^1.7.0",
+    "serve-static": "^1.10.2",
+    "yargs": "^4.4.0"
+  }
+}
