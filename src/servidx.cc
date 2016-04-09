@@ -11,13 +11,16 @@ R"(
   RESTful API server to query bloom filter index.
 
   Usage:
-    servidx <file> [-H <hostname>] [-p <port>]
+    servidx <file> [-H <hostname>] [-p <port>] [-s -k <keyfile> -c <certfile>]
 
   Options:
-    file                   bloom filter index file
-    -H, --host <hostname>  hostname to listen [default: localhost]
-    -p, --port <port>      port to listen [default: 8088]
-    -h, --help             print help message
+    file                       bloom filter index file
+    -H, --host <hostname>      hostname to listen [default: localhost]
+    -p, --port <port>          port to listen [default: 8088]
+    -s, --ssl                  enable SSL/TLS
+    -k, --ssl-key <keyfile>    private key file
+    -c, --ssl-cert <certfile>  certificate file
+    -h, --help                 print help message
 )";
 
 using namespace app;
@@ -65,10 +68,32 @@ int main(int argc, const char* argv[]) {
     res.end(body);
   });
 
+  DEBUG("SERV ssl=" << args["--ssl"]);
+
+  bool isSSL = args["--ssl"].asBool();
+
+  boost::asio::ssl::context tls { boost::asio::ssl::context::sslv23 };
+  if (isSSL) {
+    tls.use_private_key_file(args["--ssl-key"].asString(), boost::asio::ssl::context::pem);
+    tls.use_certificate_chain_file(args["--ssl-cert"].asString());
+    configure_tls_context_easy(ec, tls);
+    if (ec) {
+      std::cerr << "error: " << ec.message() << std::endl;
+      return -1;
+    }
+  }
+
   string hostname = args["--host"].asString(), port = args["--port"].asString();
   cerr << "server listening " << hostname << ":" << port << endl;
-  if (server.listen_and_serve(ec, hostname, port)) {
+
+  if (isSSL) {
+    ec = server.listen_and_serve(ec, tls, hostname, port);
+  } else {
+    ec = server.listen_and_serve(ec, hostname, port);
+  }
+  if (ec) {
     std::cerr << "error: " << ec.message() << std::endl;
+    return -1;
   }
 
   return 0;
