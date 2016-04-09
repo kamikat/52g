@@ -12,3 +12,4 @@ set_property(TARGET nghttp2
              PROPERTY INTERFACE_INCLUDE_DIRECTORIES
                ${ngHTTP2_asio_INCLUDE_DIRS})
 set_property(TARGET nghttp2_asio PROPERTY INTERFACE_LINK_LIBRARIES nghttp2 ${Boost_LIBRARIES})
+set_property(TARGET nghttp2_asio APPEND PROPERTY INTERFACE_COMPILE_OPTIONS -std=c++11)
