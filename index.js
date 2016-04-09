@@ -14,8 +14,13 @@ var argv = require('yargs').demand(1).argv;
 
 var app = express();
 
-app.use(compression());
-app.use(morgan('combined'));
+if ('production' == process.env.NODE_ENV) {
+  app.use(compression());
+  app.use(morgan('combined'));
+} else {
+  app.use(morgan('dev'));
+}
+
 app.use(parser.json());
 
 app.get('/algorithm', function (req, res) {
