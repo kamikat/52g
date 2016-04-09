@@ -82,7 +82,7 @@ var openidx = (function (file) {
     params: _params,
     lookup: function (data, cb) {
       _callbacks.push(cb);
-      _child.stdin.write(data + '\n');
+      _child.stdin.write(data.replace(/\r?\n|\r/g, '') + '\n');
     },
   };
 })(argv._[0]);
