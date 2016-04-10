@@ -144,12 +144,20 @@
   }
   @media (max-width: 750px) {
     .chart {
+      display: block;
       flex-flow: column nowrap;
       align-items: stretch;
     }
     .step {
       border-left: 4px solid #999;
       border-bottom: none;
+      opacity: 0;
+    }
+    .step + .step {
+      margin-top: -306px; /* ugly hack, related to base font size... */
+    }
+    .step.active {
+      opacity: 1;
     }
   }
   .step-1 { border-color: rgba(80, 170, 200, 0.8); }
@@ -642,7 +650,6 @@ THE SOFTWARE.
     $('a[href="#step-1"]').click(function (e) {
       $('.step.active').removeClass('active');
       $('.step-1').addClass('active');
-      window.scroll(0, -document.height);
       e.preventDefault();
     });
   })
