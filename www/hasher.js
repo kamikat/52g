@@ -40,13 +40,12 @@ var h3 = (function (h, n) {
       return bytes;
     })();
     return function (data) {
-      data = data.toString();
       if (data.length > n) {
         throw new Error('data block too looong');
       }
       var result = '00'.repeat(h);
       for (var i = 0; i != data.length; i++) {
-        result = sxor(result, byte_lookup[i][data.charCodeAt(i)]);
+        result = sxor(result, byte_lookup[i][data[i]]);
       }
       return result;
     };

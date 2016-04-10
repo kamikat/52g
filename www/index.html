@@ -655,8 +655,14 @@ THE SOFTWARE.
   })
 
   var fold_str = function (str, size) {
-    // TODO implement fold_str
-    return str;
+    return Array.prototype.reduce.call(str, function (str, x, i) {
+      if (i < size) {
+        str.push(x.charCodeAt(0));
+      } else {
+        str[i % size] ^= x.charCodeAt(0)
+      }
+      return str;
+    }, []);
   }
 
   </script>
