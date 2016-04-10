@@ -300,10 +300,10 @@
                   <i class="fa fa-shield fa-4x"></i>
                 </div>
                 <p class="on-found">
-                  您输入的用户名与密码<b>可能存在已知风险</b>
+                  此账户可能存在已知风险
                 </p>
                 <p class="on-not-found">
-                  您输入的用户名与密码<b>不存在已知风险</b>
+                  此账户不存在已知风险
                 </p>
                 <p>
                   <a href="#step-1">返回</a>
@@ -606,15 +606,16 @@ THE SOFTWARE.
       if (i < digests.length) {
         setTimeout(next, Math.floor(Math.random() * 500) + 500);
       } else {
-        writeLog('Finished.');
-        setTimeout(step3, Math.floor(Math.random() * 500) + 500);
+        writeLog('Digests sent.');
+        $('.step.active').removeClass('active').next().addClass('active');
+        $('.step-3').removeClass('found not-found');
+        setTimeout(step3, Math.floor(Math.random() * 1500) + 1500);
       }
     };
     setTimeout(next, 500);
     var step3 = function () {
-      $('.step.active').removeClass('active').next().addClass('active');
-      $('.step-3').removeClass('found not-found');
       $.get('/query', { d: digests.join(' ') }, function (data) {
+        writeLog('Digests checked: ' + (data.found ? 'found' : 'not found'));
         if (data.found) {
           $('.step-3').addClass('found');
         } else {
