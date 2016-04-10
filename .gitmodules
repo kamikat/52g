@@ -1,6 +1,6 @@
 [submodule "libbf"]
 	path = src/libbf
-	url = https://github.com/mavam/libbf
+	url = https://github.com/kirisetsz/libbf
 [submodule "src/docopt"]
 	path = src/docopt
 	url = https://github.com/docopt/docopt.cpp
