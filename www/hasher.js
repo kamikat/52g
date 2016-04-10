@@ -61,8 +61,3 @@ var hasher = function (k, seed) {
     return fns.map(function (fn) { return fn(data); });
   }
 }
-
-var hash = hasher(2);
-console.log(hash('123'));
-console.log(hash('foo'));
-console.log(hash('bar'));
