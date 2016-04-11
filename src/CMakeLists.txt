@@ -3,8 +3,6 @@ target_compile_options(libbf PUBLIC -std=c++11)
 target_include_directories(libbf PUBLIC libbf/src)
 
 add_subdirectory(docopt)
-add_subdirectory(json11)
-
 add_subdirectory(core)
 
 # Export executable targets to ${CMAKE_BINARY_DIR}
@@ -15,7 +13,3 @@ target_link_libraries(mkbfidx core docopt)
 
 add_executable(openidx openidx.cc)
 target_link_libraries(openidx core docopt)
-
-add_executable(servidx servidx.cc)
-include(${CMAKE_SOURCE_DIR}/cmake/nghttp2_asioConfig.cmake)
-target_link_libraries(servidx core docopt nghttp2_asio)
