@@ -36,8 +36,6 @@ app.get('/query', function (req, res, next) {
   });
 });
 
-app.use(serveStatic(path.resolve(__dirname, 'www')));
-
 if (process.env.PROXY_MODE) {
   // parse client from X-Forwarded-* headers
   app.enable('trust proxy');
