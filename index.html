@@ -377,6 +377,8 @@
   <script src="hasher.js"></script>
   <script type="text/javascript">
 
+  var service = function (subpath) { return 'http://service.banana.moe/trousers' + subpath; };
+
   var hash;
 
   var writeLog = function (message) {
@@ -407,7 +409,7 @@
     };
     setTimeout(next, 500);
     var step3 = function () {
-      $.get('/query', { d: digests.join(' ') }, function (data) {
+      $.get(service('/query'), { d: digests.join(' ') }, function (data) {
         writeLog('Digests checked: ' + (data.found ? 'found' : 'not found'));
         if (data.found) {
           $('.step-3').addClass('found');
@@ -420,7 +422,7 @@
 
   $(document).ready(function () {
     writeLog('Preparing hasher...');
-    $.get('/algorithm', function (data) {
+    $.get(service('/algorithm'), function (data) {
       var k = data.k; // 13
       var m = data.m; // 7094266647
       var n = (Math.log(2.0) * m / k) // 370069037;
