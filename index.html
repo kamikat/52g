@@ -288,7 +288,7 @@
         </p>
         <section>
           <div class="chart">
-            <div class="step step-1 active">
+            <div class="step step-1">
               <div class="form-box">
                 <input type="text" name="username" placeholder="邮箱">
                 <input type="password" name="password" placeholder="密码">
@@ -446,6 +446,7 @@
       $('#fp').text(fp.toFixed(7));
       hash = hasher(k);
       writeLog('Created hasher(k=' + k + ').');
+      $('.step-1').addClass('active');
     });
     $('[href="#viewsource"]').attr('href', 'view-source: ' + window.location);
     $('button[name="query"]').click(runner);
