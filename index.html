@@ -325,17 +325,22 @@
             技术说明
           </h2>
           <p>
-            发现 v2 上 Andy1999 提到网易的裤子，刚好也闲着写点东西玩一玩。国内的网络下载 Mega 还是有点压力的。
-            于是联系了海外的机油大大，没想到人家在前一天就已经把裤子存下来了……
+            发现 v2 上 Andy1999 提到网易的裤子，好久不写东西了，想想也无聊，那就玩玩呗。
+            看了看国内的网络下载 Mega 的资料实在是心累，就去戳了戳某不愿意透露姓名的T大，
+            一番谈笑风生之后就把数据清洗的事情愉快地甩了个锅 (笑)
+            最后开发几乎用掉一周时间 (中间被 CMake 坑、被 OpenSSL 坑、被 nghttp2 坑、被自己坑)，
+            老人家行动力也是下降了呢。(前言结束)
           </p>
           <p>
-            解压之后初步分析这裤子是社工撞库来的，数据也是东拼西凑，很多数据都有些年头了。
-            grep 了一下并不能找到自己的邮箱和密码什么的也就放心了，毕竟不在国内奇奇怪怪的地方提交自己的账户信息。
-            <a href="http://163password.download">163password.download</a>
-            已经提供了邮箱查询的方法。
-            那就来做个邮箱+密码的查询吧，毕竟有可能邮箱在列表里可是密码早就已经改掉了，
+            解压之后初步分析这裤子也是东拼西凑出来的：用彩虹表碰出来的、钓鱼来的、没密码的、机器人注册的、假的。
+            不止是 126.com 和 163.com 的邮箱，腾讯搜狐的邮箱也都有出现 (大致喵了一眼)，看上去很多数据都有些年头了。
+            grep 了一下并不能找到自己的邮箱和密码什么的也就放心了，也希望大家不要在国内奇奇怪怪的地方提交自己的账户信息。
+          </p>
+          <p>
+            <a href="http://163password.download">邮箱查询</a> 服务已经有了，
+            那就来做个邮箱+密码查询吧，毕竟有可能邮箱在库里可是密码早就已经改掉了，
             只是用邮箱查询的话还是不知道是不是应该修改现在使用的密码。
-            如果曾经修改过密码，建议您把邮箱和之前的密码也丢进来试一试。
+            如果曾经有修改过密码，也可以试着把邮箱和之前的密码也丢进来玩。
           </p>
           <p>
             整理数据之后使用 <a href="https://en.wikipedia.org/wiki/Bloom_filter">Bloom Filter</a> 索引，
@@ -360,7 +365,7 @@
           <p>
             本项目源代码托管在
             <a target="_blank" href="https://github.com/kirisetsz/52g"><i class="fa fa-github-alt"></i> GitHub</a>。
-            欢迎您参与到本项目的使用和开发。
+            欢迎参与到本项目的使用和开发。
           </p>
         </section>
         <section>
@@ -409,12 +414,12 @@
     var next = function () {
       writeLog('H' + i + '(t) = ' + digests[i++]);
       if (i < digests.length) {
-        setTimeout(next, Math.floor(Math.random() * 500) + 500);
+        setTimeout(next, Math.floor(Math.random() * 300) + 200);
       } else {
         writeLog('Digests sent.');
         $('.step.active').removeClass('active').next().addClass('active');
         $('.step-3').removeClass('found not-found');
-        setTimeout(step3, Math.floor(Math.random() * 1500) + 1500);
+        setTimeout(step3, Math.floor(Math.random() * 1500) + 1000);
       }
     };
     setTimeout(next, 500);
