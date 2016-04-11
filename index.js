@@ -9,6 +9,7 @@ var compression = require('compression');
 var morgan = require('morgan');
 var parser = require('body-parser');
 var serveStatic = require('serve-static');
+var assign = require('object-assign');
 
 var argv = require('yargs').demand(1).argv;
 
@@ -60,7 +61,7 @@ var openidx = (function (file) {
 
   _callbacks.push(function (data) {
     console.log(data);
-    Object.assign(_params, {
+    assign(_params, {
       k: parseInt(data.match(/k=([0-9]+)/)[1]),
       m: parseInt(data.match(/m=([0-9]+)/)[1]),
       seed: parseInt(data.match(/seed=([0-9]+)/)[1])

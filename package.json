@@ -38,6 +38,7 @@
     "express": "^4.13.4",
     "fifo": "^2.3.0",
     "morgan": "^1.7.0",
+    "object-assign": "^4.0.1",
     "serve-static": "^1.10.2",
     "yargs": "^4.4.0"
   },
