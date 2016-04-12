@@ -9,7 +9,7 @@
   "scripts": {
     "dev": "nodemon ./index.js test/foo.idx",
     "install": "npm run compile",
-    "compile": "mkdir build; cd build && cmake .. && make mkbfidx openidx",
+    "compile": "mkdir build; cd build && cmake -DCMAKE_BUILD_TYPE=Release .. && make mkbfidx openidx",
     "clean": "rm -rf build",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
