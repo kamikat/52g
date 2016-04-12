@@ -9,10 +9,18 @@ Installation
 Prerequisites:
 
 - CMake &gt;= 3.0
-- GCC &gt;= 4.9 or clang with c++11 support
-- Node.js & npm
+- GCC &gt;= 4.9 / clang with C++11 support
+- Node.js + npm
 
-Execute following command:
+On OS X
+
+    brew install cmake nodejs
+
+On Ubuntu
+
+    apt install build-essential cmake nodejs-legacy npm
+
+Execute following command in project root:
 
     npm install
 
