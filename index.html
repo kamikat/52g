@@ -80,6 +80,9 @@
     background: rgba(0, 0, 0, 0);
     color: #333;
   }
+  ul {
+    padding-left: 1.75em;
+  }
   .hero {
     font-weight: lighter;
     color: rgba(255, 255, 255, 0.8);
@@ -367,12 +370,24 @@
           </p>
         </section>
         <section>
+          <h2>更新日志</h2>
+          <h4>20160412u01</h4>
+          <ul>
+            <li>重建索引使查询对邮箱大小写不敏感</li>
+            <li>正确处理包含 Unicode 字符的查询</li>
+            <li>增加「更新日志」</li>
+          </ul>
+          <h4>20160412</h4>
+          <ul>
+            <li>检索服务上线</li>
+          </ul>
+        </section>
+        <section>
           <!-- Disqus -->
-          <div class="disqus">
+          <div class="disqus" style="text-align: center">
             <div id="disqus_thread"></div>
             <script type="text/javascript" src="/scripts/disqus.js"></script>
-            <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
-            <a href="//disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+            <a href="//disqus.com" class="dsq-brlink">Comments powered by <span class="logo-disqus">Disqus</span></a>
           </div>
           <!-- END Disqus -->
         </section>
