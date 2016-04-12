@@ -407,7 +407,7 @@
     var username = $('input[name="username"]').val()
     , password = $('input[name="password"]').val();
     writeLog('Calculating digests...');
-    var digests = hash(fold_str(username + '\t' + password, 36));
+    var digests = hash(fold_str(username.toLowerCase() + '\t' + password, 36));
     var i = 0;
     var next = function () {
       writeLog('H' + i + '(t) = ' + digests[i++]);
