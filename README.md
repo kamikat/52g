@@ -22,6 +22,7 @@ On Ubuntu
 
 Execute following command in project root:
 
+    git submodule update --init --recursive
     npm install
 
 should build following artifacts in `build/`
