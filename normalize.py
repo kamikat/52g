@@ -45,5 +45,5 @@ while 1:
         break
     norm = normalize(line.rstrip());
     if norm:
-        print "%s\t%s" % norm
-
+        mail, pw = norm
+        print "%s\t%s" % (mail.lower(), pw)
