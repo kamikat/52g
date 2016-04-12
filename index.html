@@ -376,6 +376,7 @@
             <li>重建索引使查询对邮箱大小写不敏感</li>
             <li>正确处理包含 Unicode 字符的查询</li>
             <li>增加「更新日志」</li>
+            <li>更新准确的记录数</li>
           </ul>
           <h4>20160412</h4>
           <ul>
@@ -453,7 +454,7 @@
     $.get(service('/algorithm'), function (data) {
       var k = data.k; // 13
       var m = data.m; // 7094266647
-      var n = (Math.log(2.0) * m / k) // 370069037;
+      var n = 270655360; // (Math.log(2.0) * m / k) // 370069037;
       var fp = Math.pow(1 - Math.exp(-k * n / m), k); // 0.0001
       $('#count').text(Math.floor(n));
       $('#fp').text(fp.toFixed(7));
