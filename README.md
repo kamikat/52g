@@ -1,7 +1,7 @@
 52g
 ---
 
-[![Build Status](https://travis-ci.org/kirisetsz/52g.svg?branch=master)](https://travis-ci.org/kirisetsz/52g)
+[![Build Status](https://travis-ci.org/kamikat/52g.svg?branch=master)](https://travis-ci.org/kamikat/52g)
 
 Process & query leaked password data using bloom filter.
 
